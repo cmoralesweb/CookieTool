@@ -55,6 +55,18 @@ CookieTool.Config = (function() {
 		'declinetext': 'No'
 	}
 
+	CookieTool.Config = (function() {
+		var config = {
+			'panel_class': 'cookietool-message-top',
+			'message': 'En este sitio se usan cookies para ofrecer una experiencia más personalizada. <br>¿Nos consiente usar cookies?',
+			'link': '/cookies',
+			'linkName': 'Más información',
+			'agreetext': 'Sí',
+			'declinetext': 'No',
+			'agreeStatusText': 'Actualmente <strong>aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="decline">Pulsa aquí para no permitir cookies</button>',
+			'disagreeStatusText': 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="agree">Pulsa aquí para permitir cookies</button>',
+			'notSetText': 'Aún no has establecido tu configuración. Haz click <button type="button" class="button-basic" data-action="agree">aquí</button> si quieres aceptar el uso de cookies, o <button type="button" class="button-basic" data-action="decline">aquí</button> si no.'
+		}
 	return {
 		get: function(key) {
 			return config[key];
@@ -225,6 +237,7 @@ CookieTool.API = {
 
 		message = document.createElement('div');
 		message.className = 'cookietool-message cookietool-message-' + CookieTool.Config.get('position');
+		message.className = 'cookietool-message ' + CookieTool.Config.get('panel_class');
 		// No overcomplications with event listeners
 		message.onclick = function(e) {
 			var e = e || window.event,
@@ -243,6 +256,7 @@ CookieTool.API = {
 		}
 
 		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
+		message.innerHTML = '<p>' + CookieTool.Config.get('message') + '</p><p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button></p><p><a href="' + CookieTool.Config.get('link') +'">' + CookieTool.Config.get('linkName') + '</a></p>';
 		document.body.appendChild(message);
 	},
 
@@ -288,11 +302,11 @@ CookieTool.API = {
 		}
 
 		if( status === CookieTool.API.statuses.AGREE ) {
-			container.innerHTML = 'Actualmente <strong>aceptas</strong> el uso de cookies en el sitio. <a role="button" data-action="decline" href="#">Pulsa aquí para no permitir cookies</a>';
+			container.innerHTML = CookieTool.Config.get('agreeStatusText');
 		} else if ( status === CookieTool.API.statuses.DECLINE ) {
-			container.innerHTML = 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <a role="button" data-action="agree" href="#">Pulsa aquí para permitir cookies</a>'
+			container.innerHTML = CookieTool.Config.get('disagreeStatusText');
 		} else {
-			container.innerHTML = 'Aún no has establecido tu configuración. Haz click <a role="button" data-action="agree" href="#">aquí</a> si quieres aceptar el uso de cookies, o <a role="button" data-action="decline" href="#">aquí</a> si no.';
+			container.innerHTML = CookieTool.Config.get('notSetText');
 		}
 	},
 	/**
