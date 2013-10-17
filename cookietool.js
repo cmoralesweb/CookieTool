@@ -48,25 +48,17 @@ CookieTool.Utils = {
 
 CookieTool.Config = (function() {
 	var config = {
-		'position': 'top',
-		'message': 'En este sitio se usan cookies para ofrecer una experiencia más personalizada. <a href="{{link}}" target="_blank">Más información</a>.<br>¿Nos consiente usar cookies?',
-		'link': '/cookies',
+		'panel_class': 'cookietool-message-top',
+		'message': 'En este sitio se usan cookies para ofrecer una experiencia más personalizada. <br>¿Nos consiente usar cookies?',
+        'link': '/cookies',
+		'linkName': 'Más información',
 		'agreetext': 'Sí',
-		'declinetext': 'No'
+		'declinetext': 'No',
+        'agreeStatusText': 'Actualmente <strong>aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="decline">Pulsa aquí para no permitir cookies</button>',
+        'disagreeStatusText': 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="agree">Pulsa aquí para permitir cookies</button>',
+        'notSetText': 'Aún no has establecido tu configuración. Haz click <button type="button" class="button-basic" data-action="agree">aquí</button> si quieres aceptar el uso de cookies, o <button type="button" class="button-basic" data-action="decline">aquí</button> si no.'
 	}
 
-	CookieTool.Config = (function() {
-		var config = {
-			'panel_class': 'cookietool-message-top',
-			'message': 'En este sitio se usan cookies para ofrecer una experiencia más personalizada. <br>¿Nos consiente usar cookies?',
-			'link': '/cookies',
-			'linkName': 'Más información',
-			'agreetext': 'Sí',
-			'declinetext': 'No',
-			'agreeStatusText': 'Actualmente <strong>aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="decline">Pulsa aquí para no permitir cookies</button>',
-			'disagreeStatusText': 'Actualmente <strong>no aceptas</strong> el uso de cookies en el sitio. <button type="button" class="button-basic" data-action="agree">Pulsa aquí para permitir cookies</button>',
-			'notSetText': 'Aún no has establecido tu configuración. Haz click <button type="button" class="button-basic" data-action="agree">aquí</button> si quieres aceptar el uso de cookies, o <button type="button" class="button-basic" data-action="decline">aquí</button> si no.'
-		}
 	return {
 		get: function(key) {
 			return config[key];
@@ -75,7 +67,7 @@ CookieTool.Config = (function() {
 			if( typeof key === 'string' ) {
 				config[key] = val;
 			} else {
-				config = CookieTool.Utils.extend(config, key);				
+				config = CookieTool.Utils.extend(config, key);
 			}
 		}
 	}
@@ -85,7 +77,7 @@ CookieTool.Config = (function() {
  * Event API for customisation
  */
 CookieTool.Event = (function() {
-	/** Where the callbacks are stored */	
+	/** Where the callbacks are stored */
 	var events = {};
 	return {
 		/**
@@ -236,7 +228,6 @@ CookieTool.API = {
 		}
 
 		message = document.createElement('div');
-		message.className = 'cookietool-message cookietool-message-' + CookieTool.Config.get('position');
 		message.className = 'cookietool-message ' + CookieTool.Config.get('panel_class');
 		// No overcomplications with event listeners
 		message.onclick = function(e) {
@@ -255,7 +246,6 @@ CookieTool.API = {
 			}
 		}
 
-		message.innerHTML = '<p>' + CookieTool.Config.get('message').replace(/\{\{link\}\}/g, CookieTool.Config.get('link')) + '</p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button>';
 		message.innerHTML = '<p>' + CookieTool.Config.get('message') + '</p><p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button></p><p><a href="' + CookieTool.Config.get('link') +'">' + CookieTool.Config.get('linkName') + '</a></p>';
 		document.body.appendChild(message);
 	},
@@ -325,14 +315,6 @@ CookieTool.API = {
 	 	CookieTool.Event.trigger('decline');
 	 }
 }
-
-/**
- * Default id for settings, allows to put the script at the footer with no worries
- */
- if( document.getElementById('cookietool-settings') ) {
- 	CookieTool.API.displaySettings(document.getElementById('cookietool-settings'));
- }
-
 
 /**
  * Default behaviour on agree: Load google analytics and adsense if present
