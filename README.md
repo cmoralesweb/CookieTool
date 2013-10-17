@@ -1,1 +1,1 @@
-# Script para cumplir la ley de cookies
+# Plugin WordPress para cumplir la ley de cookies
