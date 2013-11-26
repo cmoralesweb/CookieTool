@@ -28,6 +28,7 @@ class wp_cookie_tool {
     	                  'declinetext' => __('I disagree', $this->textdomain)
 
     	                  );
+                          'google_analytics' => false
 
     	$defaults = apply_filters($this->prefix. '_default_options', $defaults);
 
@@ -121,11 +122,36 @@ class wp_cookie_tool_options extends wp_cookie_tool {
 		                   $this->longname . '_general'
 		                   );
 	}
+        /*** Scripts section ***/
+        add_settings_field(
+                           $this->longname.'_analytics_code',
+                           __('Google Analytics Code', $this->textdomain),
+                           array($this, 'render_google_analytics_code'),
+                           $this->longname . '_options_page',
+                           $this->longname . '_scripts'
+                           );
+    }
 
     /**
      * Renders the options page.
      *
      * @since WP Cookie Tool 0.1
+    function render_scripts_section() {
+        ?>
+        <p><?php _e('Some code, such as Google Analytics needs to be modified to prevent it to store cookies before the user consent.', $this->textdomain) ?> <?php _e('The plugin can insert a modified version for you, or you can choose to do it for yourself.', $this->textdomain) ?></p>
+        <p><?php _e('Currently, Google Analytics and AdSense are supported.', $this->textdomain) ?></p>
+        <p><?php _e('For Google Analytics, you have to avoid loading the script, leaving just this:', $this->textdomain) ?></p>
+        <pre>
+             &lt;script type=&quot;text/javascript&quot;&gt;
+            var _gaq = _gaq || [];
+            _gaq.push([&#39;_setAccount&#39;, &#39;UA-XXXXX-Y&#39;]);
+            _gaq.push([&#39;_trackPageview&#39;]);
+            &lt;/script&gt;
+        </pre>
+        <p><?php _e('You can do it by yourself, or insert your code below and the plugin will do it for you.', $this->textdomain) ?></p>
+        <p><?php _e('Regarding Google AdSense, you need to use the asynchronous version.', $this->textdomain) ?></p>
+        <?php
+    }
      */
     function render_page() {
     	?>
@@ -233,6 +259,21 @@ class wp_cookie_tool_options extends wp_cookie_tool {
     	<?php
     }
 
+
+    /**
+     * Renders the Google Analytics input setting field.
+     */
+    function render_google_analytics_code() {
+        $options = $this->get_options();
+        ?>
+        <input type="text" name="<?php echo $this->longname?>_options[google_analytics]" id="google-analytics" value="<?php echo esc_attr($options['google_analytics']); ?>" />
+        <label class="description" for="google-analytics"><?php _e('Your account code', $this->textdomain)?></label>
+        <p class="description"><?php _e('Your account code looks like this: UA-12345678-9', $this->textdomain) ?></p>
+        <p class="description"><?php _e('Leave blank if you don\'t use Google Analytics or if you will insert the code on your own.', $this->textdomain) ?></p>
+        <?php
+    }
+
+
     function validate($input) {
     	$output = array();
 
@@ -268,6 +309,10 @@ class wp_cookie_tool_options extends wp_cookie_tool {
 
     	return apply_filters($this->longname . '_options_validate', $output, $input);
     }
+        if (isset($input['google_analytics'])) {
+          $output['google_analytics'] = esc_html($input['google_analytics']);
+      }
+
 
 }
 
@@ -325,5 +370,27 @@ class wp_cookie_tool_init extends wp_cookie_tool {
 
 		              new wp_cookie_tool_init;
 		              new wp_cookie_tool_options;
+        add_action( 'wp_head', array(&$this, 'google_analytics'), 20);
+    /*
+    Displays Google Analytics tracking code if it's set in the options, main script is not included, so we can delay cookie insertion
+    */
+    function google_analytics() {
+        $options = $this->get_options();
+        if (!empty($options['google_analytics'])):
+            if (!is_user_logged_in()):
+                ?>
+            <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '<?php echo esc_js($options["google_analytics"]) ?>']);
+            _gaq.push(['_trackPageview']);
+
+            </script>
+
+            <?php
+            endif;
+            endif;
+        }
+    }
 
 
