@@ -288,7 +288,6 @@ CookieTool.API = {
 			var e = e || window.event,
 				target = e.target || e.srcElement,
 				action = target.getAttribute('data-action');
-				console.log();
 			if( action && CookieTool.API[action] ) {
 				CookieTool.API[action]();
 				CookieTool.API.displaySettings(container);
