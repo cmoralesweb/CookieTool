@@ -177,7 +177,7 @@ class wp_cookie_tool_options extends wp_cookie_tool {
      */
     function render_scripts_section() {
         ?>
-        <p><?php _e('Some code, such as Google Analytics needs to be modified to prevent it to store cookies before the user consent.', $this->textdomain) ?> <?php _e('The plugin can insert a modified version for you, or you can choose to do it for yourself.', $this->textdomain) ?></p>
+        <p><?php _e('Some code, such as Google Analytics, needs to be modified to prevent it to store cookies before the user consent.', $this->textdomain) ?> <?php _e('The plugin can insert a modified version for you, or you can choose to do it for yourself.', $this->textdomain) ?></p>
         <p><?php _e('Currently, Google Analytics and AdSense are supported.', $this->textdomain) ?></p>
         <p><?php _e('For Google Analytics, you have to avoid loading the script, leaving just this:', $this->textdomain) ?></p>
         <pre>
