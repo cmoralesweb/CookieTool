@@ -32,6 +32,7 @@ Answer to foo bar dilemma.
 1. The screenshot description corresponds to screenshot-1.(png|jpg|jpeg|gif).
 2. The screenshot description corresponds to screenshot-2.(png|jpg|jpeg|gif).
 3. The screenshot description corresponds to screenshot-3.(png|jpg|jpeg|gif).
+1. Settings panel (in Spanish) screenshot-1.png .
 
 == Changelog ==
 = 1.0 =
