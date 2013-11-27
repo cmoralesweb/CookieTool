@@ -2,6 +2,7 @@
 Contributors: cmoral3s, ecoal95
 Tags: cookie, privacy, eu,
 Donate link: http://cmorales.es/blog
+Donate link: http://cmorales.es/descargas/wordpress-cookie-tool/
 Requires at least: 3.0.1
 Tested up to: 3.7.1
 Stable tag: 1.0
