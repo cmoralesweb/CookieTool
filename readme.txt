@@ -18,7 +18,7 @@ This plugin shows a notice to your users warning them about the use of cookies i
 1. Upload \"wp-cookietool\" to the \"/wp-content/plugins/\" directory.
 1. Activate the plugin through the \"Plugins\" menu in WordPress.
 1. Configure your settings (Settings -> Wp Cookie Tool).
-1. Create a privacy/cookie policy page and place the [cookie-div] shortcode wherever you please.
+1. Create a privacy/cookie policy page and place the [wp_ct-cookie-div] shortcode wherever you please.
 
 == Screenshots ==
 1. Settings panel (in Spanish) screenshot-1.png .
