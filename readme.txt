@@ -1,4 +1,4 @@
-== WP Cookie Tool ==
+=== WP Cookie Tool ===
 Contributors: cmoral3s, ecoal95
 Tags: cookie, privacy, eu,
 Donate link: http://cmorales.es/descargas/wordpress-cookie-tool/
