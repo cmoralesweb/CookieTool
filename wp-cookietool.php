@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Cookie Tool
-Plugin URI: http://cmorales.es/descargas/wp-cookie-tool/
+Plugin URI: http://cmorales.es/descargas/wordpress-cookie-tool/
 Description: Easy way to follow the EU Cookie directive, especially for Spain.
 Version: 1.0
 Author: Carlos Morales & Emilio Cobos
