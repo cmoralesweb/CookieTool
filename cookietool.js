@@ -256,7 +256,8 @@ CookieTool.API = {
 			}
 		}
 
-		message.innerHTML = '<p>' + CookieTool.Config.get('message') + '</p><p><button data-action="agree">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline">' + CookieTool.Config.get('declinetext') + '</button></p><p><a href="' + CookieTool.Config.get('link') +'">' + CookieTool.Config.get('linkName') + '</a></p>';
+        // onclick="" in <button>'s to fix event delegation in Safari for iPhone: http://www.quirksmode.org/blog/archives/2010/09/click_event_del.html
+		message.innerHTML = '<p>' + CookieTool.Config.get('message') + '</p><p><button data-action="agree" onclick="">' + CookieTool.Config.get('agreetext') + '</button> <button data-action="decline" onclick="">' + CookieTool.Config.get('declinetext') + '</button></p><p><a href="' + CookieTool.Config.get('link') +'">' + CookieTool.Config.get('linkName') + '</a></p>';
 		document.body.appendChild(message);
 	},
 
