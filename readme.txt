@@ -3,8 +3,8 @@ Contributors: cmoral3s, ecoal95
 Tags: cookie, privacy, eu,
 Donate link: http://cmorales.es/descargas/wordpress-cookie-tool/
 Requires at least: 3.0.1
-Tested up to: 3.8
-Stable tag: 1.0
+Tested up to: 3.9.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,9 +24,18 @@ This plugin shows a notice to your users warning them about the use of cookies i
 1. Settings panel (in Spanish) screenshot-1.png .
 
 == Changelog ==
+
+= 1.1 =
+* Fix button problem in iOS
+* Tested up to WP 3.9.1
+
 = 1.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1 =
+* Fix button problem in iOS
+
 = 1.0 =
 * Initial release.
